@@ -130,9 +130,53 @@ rpm -ivh trivy_0.31.3_Linux-64bit.rpm
 - After instance state running, we can configure the jenkins server.Now, grab your Public IP Address
 
 ```bash
-In Browser <Instance Public IP Address:8080>
+In Browser <Instance-Public-IP-Address:8080>
 
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
+- Unlock Jenkins using an administrative password and install the required plugins.
 
+![image](./images/jenkins-passwd.png)
 
+- Jenkins will now get installed and install all the libraries.
+
+![image](./images/jenkins-user.png)
+
+### Step-3 Install Sonarqube as a Docker Container
+
+- Go to Instance terminal and enter below code to install sonarqube
+
+```bash
+sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
+```
+
+```bash
+<Instance-Public-IP-Address:9000>
+username: admin
+password: admin
+```
+
+![image](./images/sonar-login.png)
+![image](./images/sonar-dash.png)
+
+### Step-4 Install Jenkins Plugins
+
+- Go to Jenkins WebUI → Manage Jenkins → Plugins → Available Plugins, then install:
+
+1. ### Eclipse Temurin Installer 
+   - Automates JDK installation on agents  
+   - Ensures correct Java version for builds
+
+2. ### SonarQube Scanner  
+   - Integrates code quality analysis into builds  
+   - Sends results to SonarQube for detailed metrics
+
+3. ### OWASP Dependency-Check  
+   - Scans project dependencies for vulnerabilities  
+   - Generates security reports to guide remediation
+
+4. ### Blue Ocean 
+   - Provides a graphical interface for pipelines  
+   - Enhances visualization of build stages and status
+
+![image](./images/jenkins-plugin.png)
