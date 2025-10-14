@@ -1,0 +1,59 @@
+**DevSecOps End to End Pipeline**
+
+🚀 **DevOps** has revolutionized software delivery with speed and automation, but **security** must not be overlooked.  
+🔐 Enter **DevSecOps** — integrating security into CI/CD pipelines from the start.  
+🛠️ The article showcases practical tools for full DevSecOps implementation:
+- **SonarQube** for code quality analysis  
+- **OWASP Dependency-Check** for scanning vulnerable dependencies  
+- **Conftest** for policy validation of Kubernetes, Terraform, and Dockerfiles  
+- **Trivy** for container image vulnerability scanning  
+
+📚 A hands-on guide to secure, automated development workflows. Enjoy the journey!
+
+**vulnerability**
+It's a weakness in a system—whether in software, hardware, networks, or human processes—that can be exploited to compromise its availability, integrity, or security. These flaws range from simple misconfigurations to complex threats like zero-day attacks.
+
+**SonarQube**
+It's an open-source platform by SonarSource that continuously analyzes code quality, detects security vulnerabilities, and tracks technical debt across multiple programming languages. It integrates with CI/CD pipelines and popular IDEs like Eclipse, IntelliJ, and Visual Studio to provide real-time feedback during development.
+
+### 🔍 Key Uses:
+- Performs static code analysis to detect bugs, code smells, and vulnerabilities  
+- Supports languages like Java, Python, JavaScript, TypeScript, and C#  
+- Helps developers catch issues early in the development lifecycle
+
+### ⭐ Core Features:
+- Code quality and security scanning  
+- Technical debt tracking  
+- CI/CD integration  
+- Customizable rules and quality gates
+
+It’s a powerful tool for maintaining clean, secure, and maintainable codebases.
+
+**OWASP Dependency-Check** 
+It’s is a Software Composition Analysis (SCA) tool that identifies known vulnerabilities in a project's dependencies. It works by detecting Common Platform Enumeration (CPE) identifiers and linking them to relevant CVE entries. The tool supports multiple interfaces—CLI, Maven, Ant, and Jenkins—and uses various analyzers and third-party sources like NPM Audit, OSS Index, and RetireJS. It automatically updates using NVD feeds from NIST to ensure accurate vulnerability detection.
+
+**Conftest** 
+It’s is a policy testing tool that uses the **Open Policy Agent (OPA)** to evaluate configuration files against custom rules written in the **Rego** language. It helps enforce security, compliance, and best practices across infrastructure-as-code.
+
+### 🔍 Common Use Cases:
+- **Kubernetes**: Validates manifests for security and compliance
+- **Terraform**: Ensures infrastructure plans follow organizational policies
+- **Dockerfiles**: Checks for secure and optimized image build practices
+
+It’s a powerful way to shift policy enforcement left in the CI/CD pipeline.
+
+**Trivy** 
+It’s is an open-source vulnerability scanner designed specifically for containers. It efficiently detects known security issues in container images and filesystems by analyzing installed packages and libraries.
+
+### 🔍 Key Features:
+- **Comprehensive vulnerability database** for accurate detection  
+- **Fast and efficient scanning** with minimal setup  
+- **Easy integration** into CI/CD pipelines and developer workflows  
+- **Multiple output formats** for flexible reporting  
+- **Continuous updates** to stay current with the latest threats
+
+It’s a lightweight yet powerful tool for securing containerized applications.
+
+
+
+
