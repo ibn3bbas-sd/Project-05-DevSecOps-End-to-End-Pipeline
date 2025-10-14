@@ -72,4 +72,67 @@ A **vulnerability** is a weakness in software, hardware, networks, or human proc
 
 ---
 
+## Hands-On
+- Let's include the devsecops tools we briefly mentioned above into the pipeline and do some hands-on. Let's get started.
+
+### Step-1 Launch Instance
+- Launch an OCI Instance Shape: VM.Standard.E5.Flex. Use the image as Oracle Linux. You can create a new key pair or use an existing one.
+
+- Enable 80, 443, 8080 and 9000 port settings in the Security List.
+- You can add the userdata below for Jenkins, Docker, Trivy installation.
+
+```bash
+#!/bin/bash
+# update system
+dnf update -y
+
+# set Hostname
+hostnamectl set-hostname jenkins-server
+
+# Install Git
+dnf install git -y
+
+# Install Java 17 (Amazon Corretto or OpenJDK)
+dnf install java-17-amazon-corretto-devel -y || dnf install java-17-openjdk-devel -y
+
+# Install Jenkins
+wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+dnf upgrade -y
+dnf install jenkins -y
+systemctl enable jenkins
+systemctl start jenkins
+
+# Install Docker
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+dnf install docker-ce docker-ce-cli containerd.io -y
+systemctl enable --now docker
+
+# Add users to docker group
+usermod -aG docker opc
+usermod -aG docker jenkins
+
+# Configure Docker to expose TCP socket for Jenkins agents
+cp /lib/systemd/system/docker.service /lib/systemd/system/docker.service.bak
+sed -i 's|^ExecStart=.*|ExecStart=/usr/bin/dockerd -H tcp://127.0.0.1:2376 -H unix:///var/run/docker.sock|' /lib/systemd/system/docker.service
+systemctl daemon-reload
+systemctl restart docker
+systemctl restart jenkins
+
+# Install Trivy
+dnf install wget -y
+wget https://github.com/aquasecurity/trivy/releases/download/v0.31.3/trivy_0.31.3_Linux-64bit.rpm
+rpm -ivh trivy_0.31.3_Linux-64bit.rpm
+```
+
+### Step-2 Configure Jenkins-Server
+
+- After instance state running, we can configure the jenkins server.Now, grab your Public IP Address
+
+```bash
+In Browser <Instance Public IP Address:8080>
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+
 
