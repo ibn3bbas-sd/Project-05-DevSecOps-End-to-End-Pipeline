@@ -357,5 +357,101 @@ pipeline {
 }
 
 ```
+- Tools: Specifies the tools needed for the pipeline, in this case, JDK and Maven.
+- Git Checkout: Check out the code from the specified Git repository.
+- Compile: Runs Maven commands to clean the workspace and compile the code.
+- Test Cases: Executes the Maven test phase to run the unit tests.
+- SonarQube Analysis: Analyze the code quality using SonarQube.
+- Quality Gate: Check the SonarQube quality gate status and abort the pipeline if it fails.
+- Build: Runs Maven commands to clean the workspace and install the build artifacts.
+- OWASP-Dependency-Check: Perform a security vulnerability check on project dependencies.
+- Scan Dockerfile with conftest: Runs Conftest in a Docker container to test the Dockerfile against the specified policy.
+- Prepare Tags for Docker Images: Extracts the Maven version from the build and sets the environment variable IMAGE_TAG_DEVSECOPS with the image tag.
+- Build App Docker Images: Build the Docker image for the application.
+- Scan Image with Trivy: Scans the Docker image for critical vulnerabilities and fails the pipeline if any are found.
+- Click Build Now and Open Blue Ocean
+
+![image](./images/pipeline-script-2.png)
+
+- After the pipeline runs, you should receive a failure at the "Scan Dockerfile with conftest" step; this is a normal occurrence.
+
+![image](./images/pipeline-result.png)
+
+- The reason for this is that if you check the GitHub repository we included in the pipeline, you will see a file named dockerfile-conftest.rego. Conftest performs the Dockerfile scan based on the conditions in this file. We received a failure because the Dockerfile we want to use does not meet the necessary requirements specified. We will correct this.
+
+### Step-9 Sonarqube inspection and add Custom Quality Gate
+
+- But first, let's discuss the pipeline output and then talk a bit about the SonarQube interface and quality gates.
+
+- You can inspect your source code qality by clicking SonarQube section
+
+![image](./images/sonarqube-1.png)
+
+![image](./images/sonarqube-2.png)
+
+- You can add custom Quality-Gates depends on your company rules
+
+- SonarQube UI click Qualiyy Gates --> Create --> give name and save --> Unlock editing --> Add Condition --> On Overall Code
+
+![image](./images/gates-1.png)
+
+![image](./images/gates-2.png)
+
+![image](./images/gate-3.png)
+
+![image](./images/gate-4.png)
+
+### Step-10 Dependency-Check inspection
+
+- You can inspect your source code dependency-check score by clicking Dependency-Check section
+
+![image](./images/check-1.png)
+
+![image](./images/check-2.png)
+
+![image](./images/check-3.png)
+
+### Step-11 Improving Dockerfile security
+
+Now it's time to improve the Dockerfile security based on the Conftest results.
+
+![image](./images/conftest-1.png)
+
+- Change your Dockerfile as below
+
+```bash
+FROM openjdk:17
+
+WORKDIR /app
+COPY . /app
+
+# Install Maven
+RUN microdnf install -y maven
+
+# Build the app
+RUN mvn clean package -DskipTests
+
+# Create and use non-root user
+RUN useradd -m spring
+USER spring
+
+EXPOSE 8080
+CMD ["java", "-jar", "target/*.jar"]
+```
+After this change, you should be able to successfully pass the Dockerfile scanning stage with Conftest.
+
+![image](./images/conftest-2.png)
+
+![image](./images/trivy-1.png)
+
+### Step-12 Docker Image Scan via Trivy
+
+Lastly, the pipeline will fail at the image scanning stage with Trivy. If we look at the Jenkinsfile, it is designed to fail if a critical vulnerability is found during the image scan with Trivy. At this stage, the critical vulnerabilities in the image need to be resolved before proceeding. The pipeline output includes recommendations on how to resolve the vulnerabilities.
 
 
+![image](./images/trivy-2.png)
+
+![image](./images/trivy-3.png)
+
+
+- Once the image scan is successfully completed according to your requirements, the next step is to push the Docker image to the registry and then deploy your application. The key point here is to ensure maximum security before deploying the application, which is what we have aimed to achieve. Have a nice day.
