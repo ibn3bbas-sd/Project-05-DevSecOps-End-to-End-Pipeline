@@ -151,7 +151,7 @@ sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
 ```
 
 ```bash
-<Instance-Public-IP-Address:9000>
+In Browser <Instance-Public-IP-Address:9000>
 username: admin
 password: admin
 ```
@@ -163,20 +163,56 @@ password: admin
 
 - Go to Jenkins WebUI → Manage Jenkins → Plugins → Available Plugins, then install:
 
-1. ### Eclipse Temurin Installer 
+1. #### Eclipse Temurin Installer 
    - Automates JDK installation on agents  
    - Ensures correct Java version for builds
 
-2. ### SonarQube Scanner  
+2. #### SonarQube Scanner  
    - Integrates code quality analysis into builds  
    - Sends results to SonarQube for detailed metrics
 
-3. ### OWASP Dependency-Check  
+3. #### OWASP Dependency-Check  
    - Scans project dependencies for vulnerabilities  
    - Generates security reports to guide remediation
 
-4. ### Blue Ocean 
+4. #### Blue Ocean 
    - Provides a graphical interface for pipelines  
    - Enhances visualization of build stages and status
 
 ![image](./images/jenkins-plugin.png)
+
+### Step-5 Configure Java, Maven in Global Tool Configuration
+
+- Go to Jenkins WebUI Manage Jenkins → Tools → Install JDK, Maven and SonarQube Scanner → Click on Apply and Save
+
+![image](./images/jdk.png)
+
+![image](./images/sonar-server.png)
+
+![image](./images/maven-tool.png)
+
+
+### Step-6 Configure Sonarqube in Manage Jenkins
+
+```bash
+In Browser <Instance-Public-IP-Address:9000>
+```
+- Go to your Sonarqube Server → Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
+
+![image](./images/sonar-token-1.png)
+
+![image](./images/sonar-token-2.png)
+
+![image](./images/sonar-token-3.png)
+
+- Copy this Token
+- Go to Jenkins WebUI → Manage Jenkins → Credentials → Add Secret Text.
+
+![image](./images/token-jenkins.png)
+
+- Go to Jenkins Dashboard → Manage Jenkins → Configure System
+- Give a name whatever you want
+- Add Sonarqube url
+- Select sonarqube credential token
+
+![image](./images/jenkins-plug.png)
