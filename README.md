@@ -1,4 +1,4 @@
-# DevSecOps End-to-End Pipeline
+# **DevSecOps End-to-End Pipeline**
 
 🚀 **DevOps** has revolutionized software delivery with speed and automation, but **security** must not be overlooked.  
 🔐 Enter **DevSecOps** — integrating security into CI/CD pipelines from the start.
@@ -14,22 +14,22 @@ This project showcases practical tools for implementing DevSecOps in continuous 
 
 ---
 
-# 🛡️ Vulnerability
+## 🛡️ Vulnerability
 
 A **vulnerability** is a weakness in software, hardware, networks, or human processes that can be exploited to compromise a system’s availability, integrity, or security. These flaws range from simple misconfigurations to complex threats like zero-day attacks.
 
 ---
 
-# 🔍 SonarQube
+## 🔍 SonarQube
 
 **SonarQube** is an open-source platform by SonarSource that continuously analyzes code quality, detects security vulnerabilities, and tracks technical debt across multiple programming languages. It integrates with CI/CD pipelines and popular IDEs like Eclipse, IntelliJ, and Visual Studio to provide real-time feedback during development.
 
-# Key Uses:
+### Key Uses:
 - Static code analysis to detect bugs, code smells, and vulnerabilities  
 - Supports Java, Python, JavaScript, TypeScript, C#, and more  
 - Helps developers catch issues early in the development lifecycle
 
-# Core Features:
+### Core Features:
 - Code quality and security scanning  
 - Technical debt tracking  
 - CI/CD integration  
@@ -37,33 +37,33 @@ A **vulnerability** is a weakness in software, hardware, networks, or human proc
 
 ---
 
-# 🧪 OWASP Dependency-Check
+## 🧪 OWASP Dependency-Check
 
 **OWASP Dependency-Check** is a Software Composition Analysis (SCA) tool that identifies known vulnerabilities in a project's dependencies. It detects Common Platform Enumeration (CPE) identifiers and links them to relevant CVE entries.
 
-# Highlights:
+### Highlights:
 - Supports CLI, Maven, Ant, and Jenkins  
 - Uses analyzers and third-party sources like NPM Audit, OSS Index, RetireJS  
 - Automatically updates using NVD feeds from NIST
 
 ---
 
-# 📜 Conftest
+## 📜 Conftest
 
 **Conftest** is a policy testing tool that uses the **Open Policy Agent (OPA)** to evaluate configuration files against custom rules written in the **Rego** language. It enforces security, compliance, and best practices across infrastructure-as-code.
 
-# Common Use Cases:
+### Common Use Cases:
 - **Kubernetes**: Validates manifests for security and compliance  
 - **Terraform**: Ensures infrastructure plans follow organizational policies  
 - **Dockerfiles**: Checks for secure and optimized image build practices
 
 ---
 
-# 🔍 Trivy
+## 🔍 Trivy
 
 **Trivy** is an open-source vulnerability scanner designed specifically for containers. It detects known security issues in container images and filesystems by analyzing installed packages and libraries.
 
-# Key Features:
+### Key Features:
 - Comprehensive vulnerability database  
 - Fast and efficient scanning  
 - Easy integration into CI/CD pipelines  
@@ -71,3 +71,5 @@ A **vulnerability** is a weakness in software, hardware, networks, or human proc
 - Continuous updates to stay current with threats
 
 ---
+
+
