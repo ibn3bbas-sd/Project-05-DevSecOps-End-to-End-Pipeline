@@ -81,6 +81,7 @@ A **vulnerability** is a weakness in software, hardware, networks, or human proc
 - Enable 80, 443, 8080 and 9000 port settings in the Security List.
 - You can add the userdata below for Jenkins, Docker, Trivy installation.
 - Ckeck firewall for Port 8080 to access Jenkins
+- Ckeck firewall for Port 9000 to access SonarQube 
 
 ```bash
 #!/bin/bash
